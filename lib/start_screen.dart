@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // we don't need any changing data so we should use the Stateless widget.
 class StartScreen extends StatelessWidget {
@@ -28,10 +29,10 @@ class StartScreen extends StatelessWidget {
           const SizedBox(
             height: 80,
           ),
-          const Text(
+          Text(
             'Learn Flutter The Fun Way!',
-            style: TextStyle(
-              color: Color.fromARGB(255, 246, 221, 255),
+            style: GoogleFonts.lato(
+              color: const Color.fromARGB(255, 246, 221, 255),
               fontSize: 24,
             ),
           ),
