@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/start_screen.dart';
 import 'package:quiz_app/questions_screen.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/results_screen.dart';
 
 //Implementing a custom stateful widget requires creating two classes:
 // A subclass of StatefulWidget that defines the widget.
@@ -27,12 +29,24 @@ class _QuizState extends State<Quiz> {
   //     activeScreen = const QuestionsScreen();
   //   });
   // }
+  List<String> selectedAnswers = [];
   var activeScreen = 'start_screen';
   void switchScreen() {
     setState(() {
       // anonymous function
       activeScreen = 'questions_screen';
     });
+  }
+
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = 'results_screen';
+        print(selectedAnswers);
+        selectedAnswers = [];
+      });
+    }
   }
 
   //setState is a function that is provided by Flutter. to set state you have to pass a function to the setState.
@@ -44,9 +58,10 @@ class _QuizState extends State<Quiz> {
     //     : const QuestionsScreen();
     Widget screenWidget = StartScreen(switchScreen);
     if (activeScreen == 'questions_screen') {
-      screenWidget = const QuestionsScreen();
+      screenWidget = QuestionsScreen(onSelectedAnswer: chooseAnswer);
+    } else if (activeScreen == 'results_screen') {
+      screenWidget = const ResultsScreen();
     }
-    ;
 
     return MaterialApp(
       home: Scaffold(
